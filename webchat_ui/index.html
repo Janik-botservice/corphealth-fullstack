@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support Chatbot (WebChat)</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="chat-container">
+        <div class="header">
+            <h1>Support Chatbot</h1>
+            <div class="menu">
+                <button onclick="selectMenu('login_registration', this)">Login und Registrierungsprobleme</button>
+                <button onclick="selectMenu('terminbuchung', this)">Probleme bei der Terminbuchung</button>
+                <button onclick="selectMenu('gesundheitsbericht', this)">Gesundheitsbericht</button>
+                <button onclick="selectMenu('it_probleme', this)">IT-Probleme</button>
+                <button onclick="selectMenu('angebote_infomaterial', this)">Fragen zu Angeboten und Infomaterial</button>
+                <button onclick="selectMenu('weitere_fragen', this)">Weitere Fragen und Probleme</button>
+            </div>
+        </div>
+
+        <div id="submenu-container" style="display: none;"></div>
+
+        <!-- WebChat Container -->
+        <div id="webchat" role="main"></div>
+    </div>
+
+    <script src="https://cdn.botframework.com/botframework-webchat/latest/webchat.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

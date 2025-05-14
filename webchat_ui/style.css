@@ -1,0 +1,69 @@
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.chat-container {
+    width: 90%;
+    max-width: 600px;
+    margin: 50px auto;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.header {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+}
+
+.menu {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 10px;
+}
+
+.menu button {
+    margin: 5px;
+    padding: 10px 15px;
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.menu button:hover {
+    background-color: #004494;
+}
+
+.menu button.selected {
+    background-color: #003366;
+}
+
+.clickable {
+    display: inline-block;
+    margin: 5px;
+    padding: 10px;
+    background-color: #e2e6ea;
+    color: #333;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.clickable:hover {
+    background-color: #d6d8db;
+}
+
+#webchat {
+    height: 500px;
+    margin-top: 20px;
+}

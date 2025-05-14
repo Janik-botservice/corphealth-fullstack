@@ -1,0 +1,7 @@
+{
+    "navigationFallback": {
+      "rewrite": "/index.html",
+      "exclude": ["/style.css", "/script.js", "/favicon.ico"]
+    }
+  }
+  
