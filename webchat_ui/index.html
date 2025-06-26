@@ -1,33 +1,35 @@
-
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Support Chatbot (WebChat)</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>Support Chatbot – Corpi</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <div class="chat-container">
-        <div class="header">
-            <h1>Support Chatbot</h1>
-            <div class="menu">
-                <button onclick="selectMenu('login_registration', this)">Login und Registrierungsprobleme</button>
-                <button onclick="selectMenu('terminbuchung', this)">Probleme bei der Terminbuchung</button>
-                <button onclick="selectMenu('gesundheitsbericht', this)">Gesundheitsbericht</button>
-                <button onclick="selectMenu('it_probleme', this)">IT-Probleme</button>
-                <button onclick="selectMenu('angebote_infomaterial', this)">Fragen zu Angeboten und Infomaterial</button>
-                <button onclick="selectMenu('weitere_fragen', this)">Weitere Fragen und Probleme</button>
-            </div>
-        </div>
-
-        <div id="submenu-container" style="display: none;"></div>
-
-        <!-- WebChat Container -->
-        <div id="webchat" role="main"></div>
+  <div class="chat-container">
+    <div class="header">
+      <img src="assets/corporatehealth_logo_2020-pos.svg" alt="Corporate Health Logo" class="logo" />
     </div>
 
-    <script src="https://cdn.botframework.com/botframework-webchat/latest/webchat.js"></script>
-    <script src="script.js"></script>
+    <div class="menu">
+      <button onclick="selectMenu('login_registration', this)">Login & Registrierung</button>
+      <button onclick="selectMenu('terminbuchung', this)">Terminbuchung</button>
+      <button onclick="selectMenu('gesundheitsbericht', this)">Gesundheitsbericht</button>
+      <button onclick="selectMenu('it_probleme', this)">IT-Probleme</button>
+      <button onclick="selectMenu('angebote_infomaterial', this)">Angebote & Infomaterial</button>
+      <button onclick="selectMenu('weitere_fragen', this)">Weitere Fragen</button>
+    </div>
+
+    <div id="submenu-container"></div>
+
+    <div id="chat-box" class="chat-box"></div>
+
+    <div class="input-area">
+      <input type="text" id="user-input" placeholder="Nachricht eingeben..." />
+      <button onclick="sendMessage()">Senden</button>
+    </div>
+  </div>
+
+  <script src="script.js" defer></script>
 </body>
 </html>

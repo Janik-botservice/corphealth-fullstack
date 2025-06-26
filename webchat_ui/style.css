@@ -1,69 +1,182 @@
+:root {
+  --primary: #005ca9;
+  --primary-dark: #004080;
+  --accent: #f26522;
+  --light: #f4f4f4;
+  --gray: #e0e0e0;
+  --bot-bg: #f2f6fa;
+  --user-bg: #dcf8c6;
+  --chat-bg: #ffffff;
+  --ch-darkblue: #003865;
+  --ch-orange: #f26522;
+  --ch-lightblue: #009fe3;
+  --ch-gray: #8c8c8c;
+  --radius: 16px;
+}
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background-color: var(--light);
+  margin: 0;
+  padding: 0;
 }
 
 .chat-container {
-    width: 90%;
-    max-width: 600px;
-    margin: 50px auto;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
+  width: 100%;
+  max-width: 500px;
+  margin: 40px auto;
+  background: var(--chat-bg);
+  border-radius: var(--radius);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .header {
-    background-color: #007bff;
-    color: white;
-    padding: 10px 20px;
-    text-align: center;
+  background-color: #ffffff; /* Weißer Hintergrund */
+  color: #003865; /* Optionale dunkle Textfarbe für Kontrast */
+  padding: 20px;
+  text-align: center;
+  border-bottom: 1px solid #e0e0e0; /* dezente Trennung */
+}
+
+
+.logo-container {
+  background-color: white;
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.logo {
+  height: 45px;
+}
+
+
+.header h1 {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
 }
 
 .menu {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    padding: 10px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 10px 15px;
+  background-color: #fff;
+  gap: 8px;
 }
 
 .menu button {
-    margin: 5px;
-    padding: 10px 15px;
-    background-color: #0056b3;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+  padding: 8px 14px;
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .menu button:hover {
-    background-color: #004494;
+  background-color: var(--primary-dark);
 }
 
 .menu button.selected {
-    background-color: #003366;
+  background-color: var(--accent);
+}
+
+#submenu-container {
+  padding: 0 15px 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 10px;
 }
 
 .clickable {
-    display: inline-block;
-    margin: 5px;
-    padding: 10px;
-    background-color: #e2e6ea;
-    color: #333;
-    border-radius: 5px;
-    cursor: pointer;
+  background-color: #f0f0f0;
+  padding: 8px 12px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  transition: background 0.2s;
 }
 
 .clickable:hover {
-    background-color: #d6d8db;
+  background-color: #e5e5e5;
 }
 
-#webchat {
-    height: 500px;
-    margin-top: 20px;
+.chat-box {
+  height: 300px;
+  overflow-y: auto;
+  padding: 15px;
+  margin: 10px 15px;
+  border: 1px solid #ddd;
+  border-radius: var(--radius);
+  background-color: var(--chat-bg);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+}
+
+.user-message,
+.bot-message {
+  max-width: 80%;
+  padding: 10px 14px;
+  margin: 6px 0;
+  border-radius: var(--radius);
+  font-size: 15px;
+  line-height: 1.4;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.user-message {
+  align-self: flex-end;
+  background-color: var(--user-bg);
+}
+
+.bot-message {
+  align-self: flex-start;
+  background-color: var(--bot-bg);
+}
+
+.input-area {
+  display: flex;
+  margin: 0 15px 15px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: var(--radius);
+  background-color: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  gap: 10px;
+}
+
+.input-area input {
+  flex: 1;
+  padding: 10px 12px;
+  font-size: 15px;
+  border-radius: var(--radius);
+  border: 1px solid #ccc;
+}
+
+.input-area button {
+  padding: 10px 16px;
+  font-size: 15px;
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.input-area button:hover {
+  background-color: var(--primary-dark);
 }

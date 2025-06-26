@@ -1,11 +1,16 @@
-
 const submenuContainer = document.getElementById("submenu-container");
+const chatBox = document.getElementById("chat-box");
 
 function clearSubmenu() {
     submenuContainer.innerHTML = '';
     submenuContainer.style.display = 'none';
 }
-
+function clearChat() {
+    chatBox.innerHTML = '';
+}
+ function clearChat() {
+            chatBox.innerHTML = '';
+            }
 function showOptions(options) {
     submenuContainer.innerHTML = '';
     submenuContainer.style.display = 'block';
@@ -13,50 +18,99 @@ function showOptions(options) {
         const button = document.createElement("button");
         button.classList.add("clickable");
         button.textContent = option;
-        button.onclick = () => sendToBot(option);
+        button.onclick = () => {
+            clearChat();
+            appendMessage("user", option);
+            sendToBot(option);
+        };
         submenuContainer.appendChild(button);
     });
 }
+
 
 function selectMenu(menu, button) {
     document.querySelectorAll('.menu button').forEach(btn => btn.classList.remove('selected'));
     button.classList.add('selected');
     clearSubmenu();
+    clearChat(); // ← Hier neu!
 
-    switch (menu) {
-        case 'login_registration':
-            showOptions(["Passwort vergessen", "ID vergessen", "Registrierung nicht möglich"]);
-            break;
-        case 'terminbuchung':
-            showOptions(["Terminbuchung nicht möglich", "Terminbestätigung nicht erhalten"]);
-            break;
-        case 'gesundheitsbericht':
-            showOptions(["Wann erhalte ich meinen Bericht", "Fragen zum Bericht"]);
-            break;
-        case 'it_probleme':
-            showOptions(["2-Faktor-Authentifizierung einrichten", "Support-Ticket erstellen"]);
-            break;
-        case 'angebote_infomaterial':
-            showOptions(["Checkup 1", "Checkup 2", "Checkup 3"]);
-            break;
-        case 'weitere_fragen':
-            showOptions(["Teilnehmer-ID & Problem eingeben"]);
-            break;
-    }
+switch (menu) {
+  case 'login_registration':
+      showOptions([
+          "Passwort vergessen",
+          "ID vergessen",
+          "Registrierung nicht möglich"
+      ]);
+      break;
+  case 'terminbuchung':
+      showOptions([
+          "Terminbuchung nicht möglich",
+          "Terminbestätigung fehlt"
+      ]);
+      break;
+  case 'gesundheitsbericht':
+      showOptions([
+          "Wann erhalte ich meinen Bericht?",
+          "Fragen zum Bericht"
+      ]);
+      break;
+  case 'it_probleme':
+      showOptions([
+          "2-Faktor-Authentifizierung einrichten",
+          "Support-Ticket erstellen"
+      ]);
+      break;
+  case 'angebote_infomaterial':
+      showOptions([
+          "Checkup 1",
+          "Checkup 2",
+          "Checkup 3"
+      ]);
+      break;
+  case 'weitere_fragen':
+      showOptions([
+          "Teilnehmer-ID & Anliegen eingeben"
+      ]);
+      break;
+}
+
+}
+
+
+function appendMessage(sender, text) {
+    const msg = document.createElement("div");
+    msg.className = sender === "user" ? "user-message" : "bot-message";
+    msg.textContent = text;
+    chatBox.appendChild(msg);
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+function sendMessage() {
+    const input = document.getElementById("user-input");
+    const text = input.value.trim();
+    if (!text) return;
+    appendMessage("user", text);
+    sendToBot(text);
+    input.value = "";
 }
 
 function sendToBot(message) {
-    window.WebChat.postMessage({
-        type: 'message',
-        text: message
+    fetch("http://localhost:3978/api/messages", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ text: message })
+    })
+    .then(res => res.json())
+    .then(data => {
+        appendMessage("bot", data.reply);
+    })
+    .catch(err => {
+        console.error("Fehler beim Senden:", err);
+        appendMessage("bot", "❌ Fehler beim Senden an den Bot.");
     });
 }
-
-window.WebChat.renderWebChat({
-    directLine: window.WebChat.createDirectLine({
-        secret: 'VAVWKQSl27XKOH8JbBcf4BnxC1ZdkNhS3dmzrZfmXdXXUfPbwiAXJQQJ99BCAC5RqLJAArohAAABAZBS1Vch.CVTlgZqlinYHwiOF88EHXEm8Y885rrQMq599iENWtsHj5uKNzTdaJQQJ99BCAC5RqLJAArohAAABAZBS2eV8'
-    }),
-    userID: 'user1',
-    username: 'Nutzer',
-    locale: 'de-DE'
-}, document.getElementById('webchat'));
+window.onload = () => {
+    appendMessage("bot", "👋 Hallo, ich bin Corpi, dein digitaler Support-Assistent. Wähle einfach oben ein Thema aus, und ich helfe dir so gut ich kann!");
+};
