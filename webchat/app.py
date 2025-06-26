@@ -29,4 +29,4 @@ def receive_message():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=3978, debug=True)
-#nur für den push
+#nur für den push#nur für den push2
