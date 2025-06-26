@@ -4,7 +4,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "*"}})
 
-antworten = {
+   antworten = {
     "passwort vergessen": "Kein Problem! Du kannst dein Passwort ganz einfach über diesen Link zurücksetzen: https://example.com/passwort-zuruecksetzen",
     "id vergessen": "Das lässt sich klären. Bitte wende dich mit deiner E-Mail-Adresse direkt an unseren Support.",
     "registrierung nicht möglich": "Bitte überprüfe, ob alle Pflichtfelder korrekt ausgefüllt sind. Bei weiteren Problemen melde dich gern bei uns.",
@@ -19,6 +19,7 @@ antworten = {
     "checkup 3": "Der Premium-Checkup mit ausführlicher ärztlicher Beratung. Für alle, die mehr wissen möchten.",
     "teilnehmer-id & problem eingeben": "Bitte teile mir deine Teilnehmer-ID sowie eine kurze Beschreibung deines Anliegens mit, damit wir dir schnell helfen können."
 }
+
 
 @app.route("/api/messages", methods=["POST"])
 def receive_message():
