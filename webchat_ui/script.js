@@ -1,5 +1,6 @@
 const submenuContainer = document.getElementById("submenu-container");
 const chatBox = document.getElementById("chat-box");
+const API_URL = "https://corphealth-webchat.azurewebsites.net/api/messages";
 
 function clearSubmenu() {
     submenuContainer.innerHTML = '';
@@ -95,7 +96,7 @@ function sendMessage() {
 }
 
 function sendToBot(message) {
-    fetch("http://localhost:3978/api/messages", {
+   fetch(API_URL, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
