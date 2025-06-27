@@ -8,7 +8,7 @@ from botbuilder.core import (
 )
 from botbuilder.schema import Activity
 from dotenv import load_dotenv
-
+from aiohttp_middlewares import cors_middleware
 load_dotenv()
 
 from botbuilder.core.integration import aiohttp_error_middleware
@@ -65,7 +65,13 @@ async def messages(req: web.Request) -> web.Response:
         return web.json_response(data=response.body, status=response.status)
     return web.Response(status=200)
 
-APP = web.Application(middlewares=[aiohttp_error_middleware])
+APP = web.Application(
+    middlewares=[
+        aiohttp_error_middleware,
+        cors_middleware(allow_all=False, origins=["https://orange-plant-063661303.6.azurestaticapps.net"])
+    ]
+)
+
 APP.router.add_post("/api/messages", messages)
 
 if __name__ == "__main__":
