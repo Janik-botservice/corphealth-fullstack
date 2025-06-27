@@ -37,7 +37,3 @@ def handle_options():
     headers["Access-Control-Allow-Headers"] = "Content-Type"
     return response
 
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=3978, debug=True)
-#nur für den push#nur für den push2
