@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app, origins=["https://orange-plant-063661303.6.azurestaticapps.net"], methods=["GET", "POST", "OPTIONS"], allow_headers=["Content-Type"])
+CORS(app, resources={r"/api/*": {"origins": "https://orange-plant-063661303.6.azurestaticapps.net"}})
 
 antworten = {
     "passwort vergessen": "Kein Problem! Du kannst dein Passwort ganz einfach über diesen Link zurücksetzen: https://example.com/passwort-zuruecksetzen",
@@ -26,6 +26,17 @@ def receive_message():
     text = data.get("text", "").strip().lower()
     antwort = antworten.get(text, f"👀 Ich habe verstanden: '{text}'. Ein Mensch hilft dir bald weiter.")
     return jsonify({"reply": antwort})
+
+@app.route("/api/messages", methods=["OPTIONS"])
+def handle_options():
+    response = app.make_default_options_response()
+    headers = response.headers
+
+    headers["Access-Control-Allow-Origin"] = "https://orange-plant-063661303.6.azurestaticapps.net"
+    headers["Access-Control-Allow-Methods"] = "POST, OPTIONS"
+    headers["Access-Control-Allow-Headers"] = "Content-Type"
+    return response
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=3978, debug=True)
