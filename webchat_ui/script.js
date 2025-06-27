@@ -1,17 +1,18 @@
 const submenuContainer = document.getElementById("submenu-container");
 const chatBox = document.getElementById("chat-box");
+
+// URL zeigt auf den Azure Bot App-Service (angepasst)
 const API_URL = "https://corphealth-webchat.azurewebsites.net/api/messages";
 
 function clearSubmenu() {
     submenuContainer.innerHTML = '';
     submenuContainer.style.display = 'none';
 }
+
 function clearChat() {
     chatBox.innerHTML = '';
 }
- function clearChat() {
-            chatBox.innerHTML = '';
-            }
+
 function showOptions(options) {
     submenuContainer.innerHTML = '';
     submenuContainer.style.display = 'block';
@@ -28,55 +29,33 @@ function showOptions(options) {
     });
 }
 
-
 function selectMenu(menu, button) {
     document.querySelectorAll('.menu button').forEach(btn => btn.classList.remove('selected'));
     button.classList.add('selected');
     clearSubmenu();
-    clearChat(); // ← Hier neu!
+    clearChat();
 
-switch (menu) {
-  case 'login_registration':
-      showOptions([
-          "Passwort vergessen",
-          "ID vergessen",
-          "Registrierung nicht möglich"
-      ]);
-      break;
-  case 'terminbuchung':
-      showOptions([
-          "Terminbuchung nicht möglich",
-          "Terminbestätigung fehlt"
-      ]);
-      break;
-  case 'gesundheitsbericht':
-      showOptions([
-          "Wann erhalte ich meinen Bericht?",
-          "Fragen zum Bericht"
-      ]);
-      break;
-  case 'it_probleme':
-      showOptions([
-          "2-Faktor-Authentifizierung einrichten",
-          "Support-Ticket erstellen"
-      ]);
-      break;
-  case 'angebote_infomaterial':
-      showOptions([
-          "Checkup 1",
-          "Checkup 2",
-          "Checkup 3"
-      ]);
-      break;
-  case 'weitere_fragen':
-      showOptions([
-          "Teilnehmer-ID & Anliegen eingeben"
-      ]);
-      break;
+    switch (menu) {
+        case 'login_registration':
+            showOptions(["Passwort vergessen", "ID vergessen", "Registrierung nicht möglich"]);
+            break;
+        case 'terminbuchung':
+            showOptions(["Terminbuchung nicht möglich", "Terminbestätigung nicht erhalten"]);
+            break;
+        case 'gesundheitsbericht':
+            showOptions(["Wann erhalte ich meinen Bericht?", "Fragen zum Bericht"]);
+            break;
+        case 'it_probleme':
+            showOptions(["2-Faktor-Authentifizierung einrichten", "Support-Ticket erstellen"]);
+            break;
+        case 'angebote_infomaterial':
+            showOptions(["Checkup 1", "Checkup 2", "Checkup 3"]);
+            break;
+        case 'weitere_fragen':
+            showOptions(["Teilnehmer-ID & Problem eingeben"]);
+            break;
+    }
 }
-
-}
-
 
 function appendMessage(sender, text) {
     const msg = document.createElement("div");
@@ -96,22 +75,29 @@ function sendMessage() {
 }
 
 function sendToBot(message) {
-   fetch(API_URL, {
+    fetch(API_URL, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({ text: message })
+        body: JSON.stringify({
+            type: "message",
+            from: { id: "user1", name: "User" },
+            text: message
+        })
     })
     .then(res => res.json())
     .then(data => {
-        appendMessage("bot", data.reply);
+        if (data && data.text) {
+            appendMessage("bot", data.text);
+        }
     })
     .catch(err => {
         console.error("Fehler beim Senden:", err);
         appendMessage("bot", "❌ Fehler beim Senden an den Bot.");
     });
 }
+
 window.onload = () => {
     appendMessage("bot", "👋 Hallo, ich bin Corpi, dein digitaler Support-Assistent. Wähle einfach oben ein Thema aus, und ich helfe dir so gut ich kann!");
 };
